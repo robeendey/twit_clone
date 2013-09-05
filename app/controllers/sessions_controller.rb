@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       # Sign the user in and redirect, see SessionsHelper for definition
       sign_in user
-      redirect_to user
+      redirect_back_or user
     else
       # Use flash.now since render doesn't count as a separate request
       # hence just using flash would persist to one more page request
