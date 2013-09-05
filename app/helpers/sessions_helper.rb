@@ -14,6 +14,14 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  # Require users to be signed in
+    def signed_in_user
+      unless signed_in?
+        store_location # for friendly forwarding
+        redirect_to signin_url, notice: "Please sign in."
+      end
+    end
+
   def sign_out
     self.current_user = nil
     cookies.delete(:remember_token)

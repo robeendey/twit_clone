@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def index
@@ -49,14 +50,6 @@ class UsersController < ApplicationController
   end
 
   private
-    # Require users to be signed in - for use with the before_filter above
-    def signed_in_user
-      unless signed_in?
-        store_location # for friendly forwarding
-        redirect_to signin_url, notice: "Please sign in."
-      end
-    end
-
     # Require correct user
     def correct_user
       @user = User.find(params[:id])
